@@ -10,12 +10,15 @@ module.exports = unzip
 
 // https://github.com/fritx/win-7zip
 function forWin32 (inPath, outPath, callback) {
-  var _7z = require('7zip')
-  run(_7z, ['e', inPath, '-o', outPath], callback)
+  var _7z = require('7zip')['7z']
+
+  // very 奇葩
+  // eg. 7z x archive.zip -oc:\Doc
+  run(_7z, ['x', inPath, '-y', '-o' + outPath], callback)
 }
 
 function forUnix (inPath, outPath, callback) {
-  run('unzip', ['-e', inPath, '-d', outPath], callback)
+  run('unzip', ['-o', inPath, '-d', outPath], callback)
 }
 
 // https://nodejs.org/api/child_process.html#child_process_event_error
