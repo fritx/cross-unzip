@@ -1,8 +1,8 @@
 {
   "name": "cross-unzip",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Cross-platform 'native' unzip in Node.js",
-  "tags": ["7zip", "7z", "zip", "unzip"],
+  "keywords": ["7zip", "7z", "zip", "unzip"],
   "homepage": "https://github.com/fritx/cross-unzip",
   "license": "GNU LGPL",
   "devDependencies": {

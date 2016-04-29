@@ -28,7 +28,9 @@ function forUnix (inPath, outPath, callback) {
 function run (bin, args, callback) {
   callback = onceify(callback)
 
-  var prc = spawn(bin, args)
+  var prc = spawn(bin, args, {
+    stdio: 'ignore'
+  })
   prc.on('error', function (err) {
     callback(err)
   })
