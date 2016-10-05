@@ -10,7 +10,7 @@ module.exports = unzip
 
 // https://github.com/fritx/win-7zip
 function forWin32 (inPath, outPath, callback) {
-  var _7z = require('7zip')['7z']
+  var _7z = require('win-7zip')['7z']
 
   // very 奇葩
   // eg. 7z x archive.zip -oc:\Doc
