@@ -10,7 +10,7 @@ See also: [win-7zip](https://github.com/fritx/win-7zip), [feross/cross-zip](http
 
 ```plain
 $ npm install cross-unzip
-$ npm install 7zip  # windows only
+$ npm install win-7zip  # Windows support
 ```
 
 ```js
