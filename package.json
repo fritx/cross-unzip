@@ -5,7 +5,7 @@
   "keywords": ["7zip", "7z", "zip", "unzip", "cross", "native"],
   "homepage": "https://github.com/fritx/cross-unzip",
   "license": "GNU LGPL",
-  "devDependencies": {
+  "dependencies": {
     "win-7zip": "^0.1.0"
   }
 }
