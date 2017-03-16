@@ -1,24 +1,29 @@
 'use strict'
 var spawn = require('child_process').spawn
 var slice = Array.prototype.slice
-
-var unzip = process.platform === 'win32' ? forWin32 : forUnix
-unzip.unzip = unzip
-module.exports = unzip
+var isWin = process.platform === 'win32'
 
 // todo: progress feedback
 
-// https://github.com/fritx/win-7zip
-function forWin32 (inPath, outPath, callback) {
-  var _7z = require('win-7zip')['7z']
-
-  // very 奇葩
-  // eg. 7z x archive.zip -oc:\Doc
-  run(_7z, ['x', inPath, '-y', '-o' + outPath], callback)
+function zip(outPath, inPath, callback) {
+  if(isWin) {
+    var _7z = require('win-7zip')['7z']
+    // eg. 7z a -tzip archive.zip ./archive
+    run(_7z, ['a', '-tzip', outPath, inPath], callback)
+  } else {
+    run('zip', ['-r', '-q', outPath, inPath], callback)
+  }
 }
 
-function forUnix (inPath, outPath, callback) {
-  run('unzip', ['-o', inPath, '-d', outPath], callback)
+function unzip(outPath, inPath, callback) {
+  if(isWin) {
+    var _7z = require('win-7zip')['7z']
+    // 确实奇葩
+    // eg. 7z x archive.zip -oc:\Doc
+    run(_7z, ['x', inPath, '-y', '-o' + outPath], callback)
+  } else {
+    run('unzip', ['-o', inPath, '-d', outPath], callback)
+  }
 }
 
 // https://nodejs.org/api/child_process.html#child_process_event_error
@@ -27,7 +32,6 @@ function forUnix (inPath, outPath, callback) {
 // it is important to guard against accidentally invoking handler functions multiple times.
 function run (bin, args, callback) {
   callback = onceify(callback)
-
   var prc = spawn(bin, args, {
     stdio: 'ignore'
   })
@@ -50,3 +54,8 @@ function onceify (fn) {
     fn.apply(this, slice.call(arguments)) // slice arguments
   }
 }
+
+
+unzip.unzip = unzip
+unzip.zip = zip
+module.exports = unzip
