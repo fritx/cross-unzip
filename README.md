@@ -16,7 +16,13 @@ $ npm install win-7zip  # Windows support
 ```js
 const unzip = require('cross-unzip')
 
+// extract files
 unzip('some/archive.zip', 'some/dir', (err) => {
+  // done
+})
+
+// compress files
+unzip.zip('some/archive.zip', 'some/archive', (err) => {
   // done
 })
 ```
