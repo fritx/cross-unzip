@@ -6,6 +6,7 @@ See also: [win-7zip](https://github.com/fritx/win-7zip), [feross/cross-zip](http
 
 - [x] Tested on OSX
 - [x] Tested on Windows
+- [x] Zip compress/decompress
 - [ ] Progress feedback
 
 ```plain
@@ -14,9 +15,15 @@ $ npm install win-7zip  # Windows support
 ```
 
 ```js
-const unzip = require('cross-unzip')
+let { zip, unzip } = require('cross-unzip')
 
-unzip('some/archive.zip', 'some/dir', (err) => {
+// extract files
+unzip('some/archive.zip', 'some/dir', err => {
+  // done
+})
+
+// compress files
+zip('some/dir', 'some/archive.zip', err => {
   // done
 })
 ```

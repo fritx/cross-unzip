@@ -1,36 +1,55 @@
 'use strict'
 var spawn = require('child_process').spawn
+var relative = require('path').relative
+var basename = require('path').basename
+var dirname = require('path').dirname
 var slice = Array.prototype.slice
-
-var unzip = process.platform === 'win32' ? forWin32 : forUnix
-unzip.unzip = unzip
-module.exports = unzip
+var isWin = process.platform === 'win32'
 
 // todo: progress feedback
 
-// https://github.com/fritx/win-7zip
-function forWin32 (inPath, outPath, callback) {
-  var _7z = require('win-7zip')['7z']
-
-  // very 奇葩
-  // eg. 7z x archive.zip -oc:\Doc
-  run(_7z, ['x', inPath, '-y', '-o' + outPath], callback)
+function zip (src, pack, callback) {
+  if (isWin) {
+    var _7z = require('win-7zip')['7z']
+    // eg. 7z a -tzip archive.zip ./archive
+    run(_7z, ['a', '-tzip', pack, src], callback)
+  } else {
+    // inspired by cross-zip
+    // https://github.com/feross/cross-zip/blob/abf9908a259988657c773ea111f83dfcece2ff5f/index.js#L80-L82
+    var dir = dirname(src)
+    var file = basename(src)
+    run('zip', ['-r', '-y', pack, file], {
+      cwd: dir
+    }, callback)
+  }
 }
 
-function forUnix (inPath, outPath, callback) {
-  run('unzip', ['-o', inPath, '-d', outPath], callback)
+function unzip (pack, dest, callback) {
+  if (isWin) {
+    var _7z = require('win-7zip')['7z']
+    // 确实奇葩
+    // eg. 7z x archive.zip -oc:\Doc
+    run(_7z, ['x', pack, '-y', '-o' + dest], callback)
+  } else {
+    run('unzip', ['-o', pack, '-d', dest], callback)
+  }
 }
 
 // https://nodejs.org/api/child_process.html#child_process_event_error
 // Note that the 'exit' event may or may not fire after an error has occurred.
 // If you are listening to both the 'exit' and 'error' events,
 // it is important to guard against accidentally invoking handler functions multiple times.
-function run (bin, args, callback) {
-  callback = onceify(callback)
-
-  var prc = spawn(bin, args, {
+function run (bin, args, opts, callback) {
+  if (!callback) {
+    callback = opts
+    opts = null
+  }
+  opts = Object.assign({}, opts, {
     stdio: 'ignore'
   })
+  callback = onceify(callback)
+  
+  var prc = spawn(bin, args, opts)
   prc.on('error', function (err) {
     callback(err)
   })
@@ -50,3 +69,9 @@ function onceify (fn) {
     fn.apply(this, slice.call(arguments)) // slice arguments
   }
 }
+
+
+unzip.isWin = isWin
+unzip.unzip = unzip
+unzip.zip = zip
+module.exports = unzip
