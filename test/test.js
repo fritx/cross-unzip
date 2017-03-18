@@ -1,5 +1,5 @@
 'use strict'
-let { zip, unzip } = require('../')
+let { zip, unzip, isWin } = require('../')
 let test = require('ava')
 let fs = require('fs-extra-promise')
 let { join, basename } = require('path')
@@ -25,6 +25,12 @@ test('zip compress', async t => {
 })
 
 test('zip decompress', async t => {
+  // weird, windows compression needs some extra time to complete
+  // code 2 is exited by 7z if you decompress it immediately
+  if (isWin) {
+    await delay(10)
+  }
+
   // decompress
   await t2p(cb => {
     unzip(pack, dest, cb)
@@ -39,6 +45,13 @@ test.after('cleanup', async t => {
   await fs.removeAsync(dest)
   await fs.removeAsync(pack)
 })
+
+// util: delay some duration
+function delay (duration) {
+  return new Promise(rs => {
+    setTimeout(rs, duration)
+  })
+}
 
 // util: thunk to promise
 function t2p (thunk) {

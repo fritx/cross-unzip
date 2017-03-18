@@ -71,6 +71,7 @@ function onceify (fn) {
 }
 
 
+unzip.isWin = isWin
 unzip.unzip = unzip
 unzip.zip = zip
 module.exports = unzip
