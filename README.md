@@ -1,6 +1,6 @@
 # cross-unzip
 
-<a href="https://www.npmjs.com/package/cross-unzip"><img width="134" height="20" src="https://img.shields.io/npm/dm/cross-unzip.svg"></a>&nbsp;&nbsp;<a href="https://github.com/fritx/cross-unzip"><img width="90" height="20" src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" /></a>&nbsp;&nbsp;<a href="https://github.com/fritx/cross-unzip"><img width="84" height="20" src="https://img.shields.io/badge/license-LGPL-yellow.svg"></a>&nbsp;&nbsp;<a href="https://circleci.com/gh/fritx/cross-unzip/tree/dev"><img width="73" height="20" src="https://circleci.com/gh/fritx/cross-unzip/tree/dev.svg?style=svg"></a>
+<a href="https://www.npmjs.com/package/cross-unzip"><img height="20" src="https://img.shields.io/npm/dm/cross-unzip.svg"></a>&nbsp;&nbsp;<a href="https://github.com/fritx/cross-unzip"><img width="90" height="20" src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" /></a>&nbsp;&nbsp;<a href="https://github.com/fritx/cross-unzip"><img width="84" height="20" src="https://img.shields.io/badge/license-LGPL-yellow.svg"></a>&nbsp;&nbsp;<a href="https://ci.appveyor.com/project/fritx/cross-unzip/branch/dev"><img height="20" src="https://ci.appveyor.com/api/projects/status/2tly5xnv1243l5jo/branch/dev?svg=true"></a>&nbsp;&nbsp;<a href="https://circleci.com/gh/fritx/cross-unzip/tree/dev"><img height="20" src="https://circleci.com/gh/fritx/cross-unzip/tree/dev.svg?style=svg"></a>
 
 See also: [win-7zip](https://github.com/fritx/win-7zip), [feross/cross-zip](https://github.com/feross/cross-zip)
 
