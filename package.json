@@ -1,6 +1,6 @@
 {
   "name": "cross-unzip",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Cross-platform 'native' unzip in Node.js",
   "keywords": [
     "7zip",
@@ -10,14 +10,13 @@
     "cross",
     "native"
   ],
-  "homepage": "https://github.com/fritx/cross-unzip",
+  "repository": "https://github.com/fritx/cross-unzip",
   "license": "GNU LGPL",
   "scripts": {
     "test": "ava"
   },
   "devDependencies": {
     "ava": "^0.18.2",
-    "fs-extra": "^2.1.2",
     "fs-extra-promise": "^0.4.1",
     "win-7zip": "^0.1.0"
   }
