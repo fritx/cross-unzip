@@ -1,0 +1,36 @@
+name: test
+
+on:
+  push:
+    branches: [dev, master, ci/**]
+  pull_request:
+    branches: [dev, master, ci/**]
+  workflow_dispatch:
+    # Keep this to allow for triggering manually
+
+jobs:
+  unit-test:
+    strategy:
+      matrix:
+        node-version:
+          - 8
+          - 18
+        os:
+          - windows-2019
+          - ubuntu-20.04
+          - macos-11
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install
+        run: npm install
+      # - name: Lint
+      #   run: npm run lint
+      - name: Test
+        run: npm run test
